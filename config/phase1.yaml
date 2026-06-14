@@ -1,0 +1,56 @@
+# Module 1: Synthetic Data Generation & Auto-Labeling Pipeline
+# PRD Reference: docs/PRD.md § Module 1
+
+dataset:
+  source: sample  # sample | bird | spider
+  input_path: null
+  database_root: data/sandbox
+  output_dir: data/processed/cocte
+  max_samples: null
+
+# Trajectory generation — policy LLM samples N independent CoCTE paths
+trajectory:
+  policy: rule_based  # rule_based | llm
+  num_paths: 4
+  llm:
+    model: meta-llama/Llama-3.1-8B-Instruct
+    base_url: null  # defaults to GENPRM_LLM_BASE_URL env var
+    api_key: null
+    temperature: 0.8
+
+# Structural diversity filtering (RewardSQL tree edit distance)
+diversity:
+  min_tree_distance: 0.15
+
+cocte:
+  step_delimiter: " и "
+  min_steps: 1
+  max_steps: 12
+
+sandbox:
+  dialect: sqlite
+  execution_timeout_sec: 30
+  preview_row_limit: 50
+  preview_char_limit: 500
+  copy_db_per_sample: true
+
+# Automated annotation without human labels
+labeling:
+  mode: execution  # execution | mcts | llm | hybrid
+  outcome_match_required: true
+  mcts:
+    num_rollouts: 8
+    exploration_constant: 1.4
+    max_depth: 12
+  llm:
+    model: meta-llama/Llama-3.1-70B-Instruct
+    base_url: null
+    api_key: null
+    temperature: 0.0
+
+export:
+  formats:
+    - jsonl
+    - sft
+    - prm
+  include_execution_feedback: true

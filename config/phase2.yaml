@@ -1,0 +1,23 @@
+# Module 2: GenPRM Supervised Fine-Tuning
+
+data:
+  input_path: data/processed/cocte/cocte_prm.jsonl
+  output_dir: data/processed/genprm_sft
+  train_split: 0.9
+  max_samples: null
+
+training:
+  verdict_tokens:
+    positive: "Yes"
+    negative: "No"
+  include_execution: true
+  include_rpe: true
+
+model:
+  base_model: null  # HuggingFace model id when using HF trainer
+  max_seq_length: 4096
+
+export:
+  formats:
+    - jsonl
+    - huggingface

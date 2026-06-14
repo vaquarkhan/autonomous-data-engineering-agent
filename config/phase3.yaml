@@ -1,0 +1,28 @@
+# Module 3: MCTS Inference Engine
+
+inference:
+  max_depth: 12
+  num_simulations: 32
+  exploration_constant: 1.4
+  parallel_workers: 4
+
+early_exit:
+  enabled: true
+  confidence_threshold: 0.35
+  min_steps_before_exit: 1
+
+adaptive_boost:
+  enabled: true
+  max_concurrent_branches: 8
+  boost_factor: 1.5
+
+genprm:
+  mode: heuristic  # heuristic | model
+  model_path: null
+
+policy:
+  mode: rule_based  # rule_based | llm
+
+sandbox:
+  database_root: data/sandbox
+  dialect: sqlite

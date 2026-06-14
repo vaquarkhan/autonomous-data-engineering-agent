@@ -1,0 +1,97 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# Type checkers & linters
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets & local config overrides
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+
+# Generated pipeline outputs (regenerate via CLI / run_pipeline.py)
+data/processed/*
+!data/processed/.gitkeep
+
+# Local SQLite sandboxes (BIRD/Spider/hr_demo — use ensure_sample_database or copy DBs locally)
+data/sandbox/**/*.sqlite
+data/sandbox/**/*.db
+data/bird/
+data/spider/
+
+# Model checkpoints & training artifacts
+checkpoints/
+outputs/
+runs/
+wandb/
+mlruns/
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Logs
+*.log
+logs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Cursor (optional local agent state — keep .cursor/rules if you use them)
+.cursor/projects/
