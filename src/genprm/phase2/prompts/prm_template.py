@@ -1,4 +1,4 @@
-"""GenPRM prompt templates — CoT critique then Yes/No verdict."""
+"""GenPRM prompt templates: CoT critique then Yes/No verdict."""
 
 GENPRM_SYSTEM = (
     "You are a SQL process reward model. Review each CTE step given the question, "
@@ -14,7 +14,7 @@ Schema:
 Prior CoCTE steps:
 {prior_steps}
 
-Evaluate step {step_index} — `{cte_name}`:
+Evaluate step {step_index} - `{cte_name}`:
 ```sql
 {step_query}
 ```

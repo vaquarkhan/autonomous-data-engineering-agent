@@ -1,4 +1,4 @@
-﻿# Tutorial 5: Module 4  -  ReCode GRPO + PURE
+﻿# Tutorial 5: Module 4 - ReCode GRPO + PURE
 
 ## Objective
 
@@ -47,4 +47,4 @@ advantages = pure_min_form_advantages(rewards)
 
 ## Output
 
-`data/processed/rl/grpo_updates.jsonl`  -  per-group advantage assignments ready for policy gradient update.
+`data/processed/rl/grpo_updates.jsonl` - per-group advantage assignments ready for policy gradient update.

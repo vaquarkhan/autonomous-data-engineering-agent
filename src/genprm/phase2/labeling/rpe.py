@@ -1,4 +1,4 @@
-"""Relative Progress Estimation (RPE) — GenPRM soft label refinement."""
+"""Relative Progress Estimation (RPE) for GenPRM soft label refinement."""
 
 from __future__ import annotations
 

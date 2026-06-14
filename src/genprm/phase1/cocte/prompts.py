@@ -3,7 +3,7 @@
 COCTE_TRANSFORM_PROMPT = """You are tasked with rewriting the following SQL query using linear Common Table Expressions (CTEs) and annotating the rationale behind each step.
 
 Rules:
-1. Decompose the query into a **linear** chain of independent CTEs — no nested subqueries inside CTE bodies when avoidable.
+1. Decompose the query into a **linear** chain of independent CTEs. Avoid nested subqueries inside CTE bodies when possible.
 2. Each CTE must be named descriptively (PascalCase or snake_case).
 3. Later CTEs may reference earlier CTEs only (never forward references).
 4. The final answer must be a standalone SELECT (not wrapped in WITH).

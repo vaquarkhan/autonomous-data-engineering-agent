@@ -18,12 +18,16 @@ def run(cmd: list[str]) -> None:
     subprocess.run(cmd, cwd=ROOT, check=True)
 
 
+def dist_files() -> list[str]:
+    return [str(path) for path in sorted(DIST.iterdir()) if path.is_file()]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Publish genprm to PyPI")
     parser.add_argument(
         "--upload",
         action="store_true",
-        help="Upload dist/* to PyPI after build (requires TWINE credentials)",
+        help="Upload dist artifacts to PyPI after build (requires TWINE credentials)",
     )
     parser.add_argument(
         "--test",
@@ -37,7 +41,12 @@ def main() -> int:
 
     run([sys.executable, "-m", "pip", "install", "--upgrade", "build", "twine"])
     run([sys.executable, "-m", "build"])
-    run([sys.executable, "-m", "twine", "check", "dist/*"])
+
+    artifacts = dist_files()
+    if not artifacts:
+        raise SystemExit("No build artifacts found in dist/")
+
+    run([sys.executable, "-m", "twine", "check", *artifacts])
 
     if not args.upload:
         print("\nBuild OK. Upload with:")
@@ -47,18 +56,12 @@ def main() -> int:
         return 0
 
     repo = "testpypi" if args.test else "pypi"
-    run(
-        [
-            sys.executable,
-            "-m",
-            "twine",
-            "upload",
-            "--repository",
-            repo,
-            "dist/*",
-        ]
+    run([sys.executable, "-m", "twine", "upload", "--repository", repo, *artifacts])
+    index = (
+        "https://test.pypi.org/project/genprm/"
+        if args.test
+        else "https://pypi.org/project/genprm/"
     )
-    index = "https://test.pypi.org/project/genprm/" if args.test else "https://pypi.org/project/genprm/"
     print(f"\nPublished: {index}")
     return 0
 

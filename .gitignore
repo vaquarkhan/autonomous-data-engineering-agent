@@ -1,4 +1,4 @@
-# Python
+﻿# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -69,7 +69,7 @@ secrets/
 data/processed/*
 !data/processed/.gitkeep
 
-# Local SQLite sandboxes (BIRD/Spider/hr_demo — use ensure_sample_database or copy DBs locally)
+# Local SQLite sandboxes (BIRD/Spider/hr_demo; use ensure_sample_database or copy DBs locally)
 data/sandbox/**/*.sqlite
 data/sandbox/**/*.db
 data/bird/
@@ -93,5 +93,5 @@ logs/
 # Jupyter
 .ipynb_checkpoints/
 
-# Cursor (optional local agent state — keep .cursor/rules if you use them)
+# Cursor (optional local agent state; keep .cursor/rules if you use them)
 .cursor/projects/

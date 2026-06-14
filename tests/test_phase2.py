@@ -75,7 +75,7 @@ def test_heuristic_genprm():
     assert v.verdict == "Yes"
     v2 = h.score_step("Q", "S", "", 0, "C", "SELECT bad", {"success": False, "error": "e"})
     assert v2.verdict == "No"
-    raw = h.generate([{"role": "user", "content": "SUCCESS — ok"}])
+    raw = h.generate([{"role": "user", "content": "SUCCESS - ok"}])
     assert "Yes" in raw
 
 

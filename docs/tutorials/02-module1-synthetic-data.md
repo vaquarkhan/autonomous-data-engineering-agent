@@ -1,4 +1,4 @@
-﻿# Tutorial 2: Module 1  -  Synthetic Data & Auto-Labeling
+﻿# Tutorial 2: Module 1 - Synthetic Data & Auto-Labeling
 
 ## Objective
 
@@ -45,10 +45,10 @@ genprm-generate-cocte \
 
 ## Labeling Modes
 
-- **execution**  -  Oracle sandbox match (fastest, no GPU)
-- **mcts**  -  Rollout-based Monte Carlo estimation
-- **llm**  -  Llama-3.1-70B zero-shot step evaluation
-- **hybrid**  -  Requires execution + MCTS + LLM agreement
+- **execution** - Oracle sandbox match (fastest, no GPU)
+- **mcts** - Rollout-based Monte Carlo estimation
+- **llm** - Llama-3.1-70B zero-shot step evaluation
+- **hybrid** - Requires execution + MCTS + LLM agreement
 
 ## BIRD / Spider
 

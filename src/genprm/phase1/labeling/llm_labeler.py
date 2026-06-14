@@ -16,7 +16,7 @@ STEP_EVAL_PROMPT = """You are an expert SQL process reward annotator. Evaluate w
 Rules:
 1. A step is CORRECT (Yes) if it executes without error AND contributes toward answering the question.
 2. A step is INCORRECT (No) if it has compilation/runtime errors OR uses wrong tables/columns/logic.
-3. Use the execution feedback as hard evidence — do not ignore sandbox errors.
+3. Use the execution feedback as hard evidence; do not ignore sandbox errors.
 4. Output JSON only: {{"reasoning": "...", "judgment": "Yes"|"No", "confidence": 0.0-1.0}}
 
 Question: {question}
@@ -42,7 +42,7 @@ Gold SQL outcome matches expected: {outcome_correct}
 class LLMLabeler:
     """Zero-shot auto-labeler using a large instruct model (e.g., Llama-3.1-70B).
 
-    Adapted from GenPRM rationale_generation — uses oracle execution context
+    Adapted from GenPRM rationale_generation. Uses oracle execution context
     to supervise step-level Yes/No without human annotation.
     """
 
@@ -63,9 +63,9 @@ class LLMLabeler:
             exec_fb = "No execution data"
             if step.execution:
                 if step.execution.success:
-                    exec_fb = f"SUCCESS — preview: {step.execution.preview}"
+                    exec_fb = f"SUCCESS - preview: {step.execution.preview}"
                 else:
-                    exec_fb = f"FAILED — {step.execution.error}"
+                    exec_fb = f"FAILED - {step.execution.error}"
 
             prompt = STEP_EVAL_PROMPT.format(
                 question=record.sample.question,

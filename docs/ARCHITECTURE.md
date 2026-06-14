@@ -9,15 +9,15 @@ Autonomous-Data-Agent-GenPRM/          # workspace folder may be named GenPRM
 │   └── ARCHITECTURE.md
 ├── config/
 │   ├── phase1.yaml                    # Module 1 pipeline config
-│   ├── phase2.yaml                    # (planned) GenPRM training
-│   ├── phase3.yaml                    # (planned) MCTS inference
-│   └── phase4.yaml                    # (planned) RL training
+│   ├── phase2.yaml                    # GenPRM SFT dataset config
+│   ├── phase3.yaml                    # MCTS inference config
+│   └── phase4.yaml                    # RL training config
 ├── src/genprm/
 │   ├── common/                        # Shared schemas, config
-│   ├── phase1/                        # Module 1  -  IMPLEMENTED
-│   ├── phase2/                        # Module 2  -  scaffold
-│   ├── phase3/                        # Module 3  -  scaffold
-│   └── phase4/                        # Module 4  -  scaffold
+│   ├── phase1/                        # Module 1 - IMPLEMENTED
+│   ├── phase2/                        # Module 2 - IMPLEMENTED
+│   ├── phase3/                        # Module 3 - IMPLEMENTED
+│   └── phase4/                        # Module 4 - IMPLEMENTED
 └── data/
     ├── sandbox/                       # Isolated SQLite DBs
     └── processed/                     # Generated datasets
@@ -107,7 +107,7 @@ Autonomous-Data-Agent-GenPRM/          # workspace folder may be named GenPRM
 ReCode is our name for the RewardSQL GRPO + execution gate pattern:
 
 ```python
-# Pseudocode  -  phase4/rl/recode_grpo.py
+# Pseudocode - phase4/rl/recode_grpo.py
 for trajectory in group:
     if not sandbox.passes(trajectory):
         trajectory.process_rewards = [0.0] * len(trajectory.steps)  # nullify

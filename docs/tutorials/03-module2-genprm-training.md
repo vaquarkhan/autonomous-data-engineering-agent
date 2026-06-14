@@ -1,4 +1,4 @@
-﻿# Tutorial 3: Module 2  -  GenPRM SFT Dataset
+﻿# Tutorial 3: Module 2 - GenPRM SFT Dataset
 
 ## Objective
 
@@ -31,9 +31,9 @@ genprm-train-genprm --config config/phase2.yaml
 
 ## Outputs
 
-- `train.jsonl`  -  GenPRM SFT training examples
-- `eval.jsonl`  -  held-out evaluation set
-- `hf_dataset.jsonl`  -  HuggingFace text format (optional)
+- `train.jsonl` - GenPRM SFT training examples
+- `eval.jsonl` - held-out evaluation set
+- `hf_dataset.jsonl` - HuggingFace text format (optional)
 
 ## Example Training Row
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the full Autonomous-Data-Agent-GenPRM pipeline (Modules 1–4)."""
+"""Run the full Autonomous-Data-Agent-GenPRM pipeline (Modules 1-4)."""
 
 from __future__ import annotations
 

@@ -4,7 +4,13 @@
 
 # Autonomous-Data-Agent-GenPRM
 
+[![PyPI](https://img.shields.io/pypi/v/genprm)](https://pypi.org/project/genprm/)
+[![Tests](https://img.shields.io/badge/tests-140%20passed-brightgreen)](https://github.com/vaquarkhan/autonomous-data-engineering-agent)
+[![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)](https://github.com/vaquarkhan/autonomous-data-engineering-agent)
+
 An **autonomous data engineering agent** that generates, verifies, and self-corrects complex SQL queries and ETL pipelines using generative process supervision, sandbox execution feedback, MCTS inference, and RL fine-tuning with reward-hacking safeguards.
+
+**Repository:** [github.com/vaquarkhan/autonomous-data-engineering-agent](https://github.com/vaquarkhan/autonomous-data-engineering-agent)
 
 ## Install from PyPI
 
@@ -83,7 +89,7 @@ src/genprm/
 └── phase4/    # ReCode GRPO + PURE (complete)
 config/        # phase1.yaml ... phase4.yaml
 docs/          # PRD, architecture, tutorials
-tests/         # 139+ tests, 100% coverage
+tests/         # 140 tests, 100% coverage
 scripts/       # run_pipeline.py
 ```
 

@@ -24,8 +24,8 @@ def execution_summary(execution: dict | None) -> str:
     if not execution:
         return "No execution data available."
     if execution.get("success"):
-        return f"SUCCESS — {execution.get('preview', 'rows returned')}"
-    return f"FAILED — {execution.get('error', 'unknown error')}"
+        return f"SUCCESS - {execution.get('preview', 'rows returned')}"
+    return f"FAILED - {execution.get('error', 'unknown error')}"
 
 
 def build_critique_from_label(label: int, cte_name: str) -> str:

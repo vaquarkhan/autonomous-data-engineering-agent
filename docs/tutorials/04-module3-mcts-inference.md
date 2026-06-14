@@ -1,4 +1,4 @@
-﻿# Tutorial 4: Module 3  -  MCTS Inference Engine
+﻿# Tutorial 4: Module 3 - MCTS Inference Engine
 
 ## Objective
 
@@ -50,7 +50,7 @@ for node in result.best_path:
 
 ## How It Works
 
-1. **Selection**  -  UCB1 traverses the CoCTE step tree
-2. **Evaluation**  -  GenPRM scores each step using NL + execution feedback
-3. **Early Exit**  -  Branches below confidence threshold are pruned
-4. **Adaptive Boost**  -  Freed compute reallocates to high-potential branches
+1. **Selection** - UCB1 traverses the CoCTE step tree
+2. **Evaluation** - GenPRM scores each step using NL + execution feedback
+3. **Early Exit** - Branches below confidence threshold are pruned
+4. **Adaptive Boost** - Freed compute reallocates to high-potential branches

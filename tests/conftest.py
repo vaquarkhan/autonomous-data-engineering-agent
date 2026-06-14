@@ -112,7 +112,7 @@ def prm_jsonl(tmp_path: Path) -> Path:
         "label": 1,
         "messages": [
             {"role": "system", "content": "sys"},
-            {"role": "user", "content": "SUCCESS — ok"},
+            {"role": "user", "content": "SUCCESS - ok"},
         ],
     }
     path = tmp_path / "prm.jsonl"
