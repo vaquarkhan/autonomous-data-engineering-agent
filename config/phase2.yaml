@@ -12,10 +12,27 @@ training:
     negative: "No"
   include_execution: true
   include_rpe: true
+  num_train_epochs: 1
+  batch_size: 1
+  gradient_accumulation_steps: 4
+  learning_rate: 2.0e-5
+  logging_steps: 10
+  save_steps: 200
+  fp16: true
 
 model:
-  base_model: null  # HuggingFace model id when using HF trainer
+  base_model: meta-llama/Llama-3.2-1B-Instruct
+  output_dir: checkpoints/genprm_sft
   max_seq_length: 4096
+  device_map: true
+  train_weights: false
+
+llm:
+  model: meta-llama/Llama-3.1-8B-Instruct
+  base_url: http://localhost:8000/v1
+  api_key: null
+  temperature: 0.0
+  timeout: 120
 
 export:
   formats:

@@ -6,10 +6,12 @@ rl:
   kl_coeff: 0.04
   pure_min_form: true
   execution_gate: true
+  min_group_advantage: 0.0
 
 data:
   input_path: data/processed/cocte/cocte_labeled.jsonl
   output_dir: data/processed/rl
+  grpo_updates_path: data/processed/rl
 
 sandbox:
   database_root: data/sandbox
@@ -18,3 +20,18 @@ sandbox:
 reward:
   process_weight: 1.0
   outcome_weight: 1.0
+
+model:
+  base_model: meta-llama/Llama-3.2-1B-Instruct
+  output_dir: checkpoints/policy_grpo
+  max_seq_length: 4096
+  device_map: true
+  train_weights: false
+
+training:
+  num_train_epochs: 1
+  batch_size: 1
+  gradient_accumulation_steps: 4
+  logging_steps: 10
+  save_steps: 200
+  fp16: true

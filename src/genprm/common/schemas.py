@@ -58,6 +58,7 @@ class TextToSQLSample(BaseModel):
     gold_sql: str
     evidence: Optional[str] = None
     domain: TaskDomain = TaskDomain.TEXT_TO_SQL
+    metadata: dict[str, Any] = Field(default_factory=dict)
 
 
 class CoCTERecord(BaseModel):

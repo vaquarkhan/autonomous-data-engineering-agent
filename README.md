@@ -60,6 +60,7 @@ Module 4: GRPO with execution gate + PURE min-form advantages
 
 - [Product Requirements (PRD)](docs/PRD.md)
 - [Architecture](docs/ARCHITECTURE.md)
+- [Production Guide (GPU, vLLM, BIRD/Spider)](docs/PRODUCTION.md)
 - [Tutorials](docs/tutorials/README.md)
 
 ## Foundational Repositories

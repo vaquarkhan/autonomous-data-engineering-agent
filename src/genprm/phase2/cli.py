@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Phase 2 CLI: build GenPRM SFT dataset from Module 1 PRM exports."""
+"""Phase 2 CLI: build GenPRM SFT dataset and optionally train HuggingFace weights."""
 
 from __future__ import annotations
 
@@ -17,6 +17,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--config", type=Path, default=Path("config/phase2.yaml"))
     parser.add_argument("--input-path", type=Path)
     parser.add_argument("--output-dir", type=Path)
+    parser.add_argument(
+        "--train-weights",
+        action="store_true",
+        help="Run HuggingFace SFT after dataset export.",
+    )
     return parser.parse_args(argv)
 
 
@@ -35,6 +40,13 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  {name}: {path}")
     if "stats" in paths:
         print(json.dumps(json.loads(paths["stats"].read_text()), indent=2))
+
+    if args.train_weights or config.get("model", {}).get("train_weights"):
+        from genprm.phase2.training.hf_trainer import HFSFTTrainer
+
+        checkpoint = HFSFTTrainer(config).run()
+        print(f"GenPRM weights saved to {checkpoint}")
+
     return 0
 
 

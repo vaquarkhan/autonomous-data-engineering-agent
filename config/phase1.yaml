@@ -4,6 +4,7 @@
 dataset:
   source: sample  # sample | bird | spider
   input_path: null
+  spider_tables_path: null  # optional path to Spider tables.json
   database_root: data/sandbox
   output_dir: data/processed/cocte
   max_samples: null

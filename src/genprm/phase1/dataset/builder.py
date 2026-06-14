@@ -34,7 +34,14 @@ class CoCTEDatasetBuilder:
 
         ensure_sample_database(self.database_root)
 
-        self.loader = DatasetLoader(self.database_root)
+        self.loader = DatasetLoader(
+            self.database_root,
+            spider_tables_path=(
+                Path(dataset_cfg["spider_tables_path"])
+                if dataset_cfg.get("spider_tables_path")
+                else None
+            ),
+        )
         self.executor = SQLSandboxExecutor(
             database_root=self.database_root,
             timeout_sec=config["sandbox"]["execution_timeout_sec"],

@@ -2,9 +2,14 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Iterator
+from typing import Iterator, Optional
 
 from genprm.common.schemas import TextToSQLSample
+from genprm.phase1.dataset.benchmarks import (
+    load_spider_tables,
+    spider_schema_for_db,
+)
+from genprm.phase1.dataset.schema_extractor import infer_schema, resolve_database_path
 
 
 HR_DEMO_SCHEMA = """
@@ -74,14 +79,22 @@ SAMPLE_INSTANCES = [
 class DatasetLoader:
     """Load Text-to-SQL samples from sample bundle, BIRD, or Spider JSON."""
 
-    def __init__(self, database_root: Path) -> None:
+    def __init__(
+        self,
+        database_root: Path,
+        *,
+        spider_tables_path: Path | None = None,
+    ) -> None:
         self.database_root = database_root
+        self.spider_tables_path = spider_tables_path
+        self._spider_tables: dict[str, list[dict]] | None = None
 
     def load(
         self,
         source: str,
         input_path: str | Path | None = None,
         max_samples: int | None = None,
+        split: str | None = None,
     ) -> list[TextToSQLSample]:
         if source == "sample":
             samples = self._load_sample_bundle()
@@ -91,6 +104,9 @@ class DatasetLoader:
             samples = self._load_json_benchmark(Path(input_path), source)
         else:
             raise ValueError(f"Unknown dataset source: {source!r}")
+
+        if split is not None:
+            samples = [s for s in samples if s.metadata.get("split") == split]
 
         if max_samples is not None:
             samples = samples[:max_samples]
@@ -127,9 +143,14 @@ class DatasetLoader:
             gold_sql = item.get("SQL", item.get("query", item.get("output", "")))
             db_schema = item.get("schema", item.get("db_schema", ""))
             evidence = item.get("evidence")
+            split = item.get("split")
 
             if not db_schema:
-                db_schema = self._infer_schema_from_db(db_id)
+                db_schema = self._resolve_schema(db_id, source)
+
+            metadata: dict = {"source": source}
+            if split:
+                metadata["split"] = split
 
             samples.append(
                 TextToSQLSample(
@@ -139,12 +160,26 @@ class DatasetLoader:
                     db_id=db_id,
                     gold_sql=gold_sql,
                     evidence=evidence,
+                    metadata=metadata,
                 )
             )
         return samples
 
+    def _resolve_schema(self, db_id: str, source: str) -> str:
+        if source == "spider" and self.spider_tables_path is not None:
+            tables = self._get_spider_tables()
+            return spider_schema_for_db(tables, db_id)
+        return infer_schema(self.database_root, db_id)
+
+    def _get_spider_tables(self) -> dict[str, list[dict]]:
+        if self._spider_tables is None:
+            if self.spider_tables_path is None:
+                return {}
+            self._spider_tables = load_spider_tables(self.spider_tables_path)
+        return self._spider_tables
+
     def _infer_schema_from_db(self, db_id: str) -> str:
-        return f"-- Schema for database: {db_id}\n-- Place DDL under {self.database_root / db_id}"
+        return infer_schema(self.database_root, db_id)
 
     @staticmethod
     def iter_jsonl(path: Path) -> Iterator[dict]:
@@ -153,3 +188,7 @@ class DatasetLoader:
                 line = line.strip()
                 if line:
                     yield json.loads(line)
+
+    @staticmethod
+    def database_exists(database_root: Path, db_id: str) -> bool:
+        return resolve_database_path(database_root, db_id) is not None

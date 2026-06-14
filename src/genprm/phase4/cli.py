@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Phase 4 CLI: ReCode-gated GRPO with PURE min-form advantages."""
+"""Phase 4 CLI: ReCode-gated GRPO and optional HuggingFace policy training."""
 
 from __future__ import annotations
 
@@ -19,6 +19,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--config", type=Path, default=Path("config/phase4.yaml"))
     parser.add_argument("--input-path", type=Path)
     parser.add_argument("--output-dir", type=Path)
+    parser.add_argument(
+        "--train-weights",
+        action="store_true",
+        help="Run HuggingFace policy fine-tuning after GRPO export.",
+    )
     return parser.parse_args(argv)
 
 
@@ -52,6 +57,13 @@ def main(argv: list[str] | None = None) -> int:
     print("ReCode GRPO complete.")
     print(f"  output: {out_path}")
     print(json.dumps(stats, indent=2))
+
+    if args.train_weights or config.get("model", {}).get("train_weights"):
+        from genprm.phase4.training.hf_policy_trainer import HFPolicyTrainer
+
+        checkpoint = HFPolicyTrainer(config).run()
+        print(f"Policy weights saved to {checkpoint}")
+
     return 0
 
 

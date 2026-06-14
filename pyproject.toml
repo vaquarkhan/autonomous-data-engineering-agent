@@ -51,6 +51,13 @@ Issues = "https://github.com/vaquarkhan/autonomous-data-engineering-agent/issues
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "pytest-cov>=5.0", "ruff>=0.4", "openai>=1.0"]
 llm = ["openai>=1.0", "httpx>=0.27"]
+train = [
+    "torch>=2.0",
+    "transformers>=4.40",
+    "datasets>=2.19",
+    "accelerate>=0.30",
+    "peft>=0.11",
+]
 
 [project.scripts]
 genprm-generate-cocte = "genprm.phase1.cli:main"

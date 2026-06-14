@@ -8,11 +8,13 @@ import json
 import sys
 from pathlib import Path
 
+from genprm.common.backends import build_genprm_inference
 from genprm.common.config import load_config
 from genprm.phase1.dataset.loader import DatasetLoader
 from genprm.phase1.sandbox.executor import SQLSandboxExecutor
 from genprm.phase1.sandbox.isolator import ensure_sample_database
 from genprm.phase3.engine import MCTSEngine
+from genprm.phase3.mcts.value_fn import GenPRMValueFunction
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -32,9 +34,13 @@ def main(argv: list[str] | None = None) -> int:
     samples = loader.load("sample")
     sample = next(s for s in samples if s.question_id == args.question_id)
 
+    genprm_inference = build_genprm_inference(config)
+    value_fn = GenPRMValueFunction(genprm=genprm_inference)
+
     executor = SQLSandboxExecutor(database_root=db_root)
     engine = MCTSEngine(
         executor=executor,
+        value_fn=value_fn,
         num_simulations=config["inference"]["num_simulations"],
         exploration_constant=config["inference"]["exploration_constant"],
         early_exit_enabled=config["early_exit"]["enabled"],

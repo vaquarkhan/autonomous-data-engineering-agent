@@ -17,11 +17,23 @@ adaptive_boost:
   boost_factor: 1.5
 
 genprm:
-  mode: heuristic  # heuristic | model
-  model_path: null
+  mode: heuristic  # heuristic | llm
+  llm:
+    model: meta-llama/Llama-3.1-70B-Instruct
+    base_url: http://localhost:8000/v1
+    api_key: null
+    temperature: 0.0
+    timeout: 120
 
 policy:
   mode: rule_based  # rule_based | llm
+
+llm:
+  model: meta-llama/Llama-3.1-8B-Instruct
+  base_url: http://localhost:8000/v1
+  api_key: null
+  temperature: 0.7
+  timeout: 120
 
 sandbox:
   database_root: data/sandbox
